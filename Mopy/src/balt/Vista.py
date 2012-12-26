@@ -559,7 +559,7 @@ class TaskDialog(object):
                 radio = self._radio_buttons[wparam]
             else:
                 radio = wparam
-            args.append(wparam)
+            args.append(radio)
 
         elif notification == VERIFICATION_CLICKED:
             args.append(wparam)
@@ -600,4 +600,3 @@ class TaskDialog(object):
                                    self._progress_bar['range'])
         windll.user32.SendMessageW(self.__handle, _SETPBARPOS,
                                    self._progress_bar['pos'], 0)
-
