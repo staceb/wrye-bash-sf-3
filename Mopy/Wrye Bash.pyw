@@ -27,7 +27,7 @@
 # Import Hooks -----------------------------------------------------------------
 import sys
 if not hasattr(sys,'frozen'):
-    import imp,os
+    import importlib, os
     # When a Python application/module is located in a directory with unicode
     # characters, this causes problems with imports.  The full path is encoded
     # to MBCS before passing to the filesystem, so any characters that do not
@@ -49,13 +49,13 @@ if not hasattr(sys,'frozen'):
             if fullname in sys.modules:
                 return sys.modules[fullname]
             else:
-                sys.modules[fullname] = imp.new_module(fullname)
+                sys.modules[fullname] = importlib.new_module(fullname)
             filename = fullname.replace('.','\\')
             # File (module) import
             if os.path.exists(filename+'.py'):
                 try:
                     with open(filename+'.py','U') as fp:
-                        mod = imp.load_source(fullname,filename+'.py',fp)
+                        mod = importlib.load_source(fullname,filename+'.py',fp)
                         sys.modules[fullname] = mod
                         mod.__loader__ = self
                         mod.__file__ = filename+'.py'
